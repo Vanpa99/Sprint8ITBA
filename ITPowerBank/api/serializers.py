@@ -27,6 +27,7 @@ class TarjetaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tarjeta
         fields = '__all__'
+        read_only_fields = ['numero'] 
 
 
 # Serializer para Sucursal
