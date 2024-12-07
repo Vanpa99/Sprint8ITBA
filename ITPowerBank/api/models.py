@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User 
 # Create your models here.
 from django.db import models
 from datetime import timedelta
@@ -7,6 +8,7 @@ import random
 
 # Modelo de Cliente
 class Cliente(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100)  # Nombre completo
     email = models.EmailField(unique=True)     # Email único
     direccion = models.CharField(max_length=255)  # Dirección postal

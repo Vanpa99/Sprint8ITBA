@@ -12,7 +12,7 @@ router.register(r'sucursales', SucursalViewSet, basename='sucursal')
 
 # Registrar las rutas del router
 urlpatterns = [
-     path('', include(router.urls)),
+    path('', include(router.urls)),
     path('cliente/datos/', obtener_datos_cliente, name='obtener_datos_cliente'),
     path('cliente/saldo/', obtener_saldo, name='obtener_saldo'),
     path('cliente/prestamos/', obtener_prestamos_cliente, name='obtener_prestamos_cliente'),
