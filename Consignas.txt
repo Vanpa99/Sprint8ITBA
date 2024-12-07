@@ -1,0 +1,22 @@
+✔️​❌​❗​
+--Introducción
+El equipo de TI de ITBANK, está basando la integración de aplicaciones y la construcción de un back-end robusto, es una arquitectura de servicios. En particular están trabajando en el desarrollo de una API REST, de esta manera pueden utilizar distintas interfaces hechas para sitios web o aplicaciones móviles utilizando las misma API de Backend.
+
+    1.Primera problemática
+Llenado al último sprint debemos realiza la Integración del fron-ent con el back-end por tal motivo tenemos que crear una API REST con Django.✔️ Una vez que tengamos la API REST creada, debemos exponer los endpoints que nos interesen para que el front-end pueda consumirlos.✔️ Luego vamos a configurar el front-end. Para ello, debemos instalar las dependencias necesarias, como Axios o fetch, para realizar peticiones HTTP a la API REST.✔️ También debemos configurar la ruta de la API REST en el front-end.​❌ Una vez que tenemos el front-end configurado, podemos realizar peticiones HTTP a la API REST para obtener los datos que necesitamos y poder mostrarlos en el front-end. Para ello, podemos usar el framework React para crear componentes que muestren los datos de la manera que deseemos.​❌
+Al finalizar esta problemática, el home banking debe quedar operativo con todas las funcionalidades desarrolladas en los Sprint anteriores, basándose en un fron-end en react/Next, un formulario desarrollado en django como témplate y el back-end basado en API REST utilizando los modelos y vistas desarrollados en el sprint anterior.
+
+    2.Segunda problemática
+Adicionalmente, en ITBANK se piensa en facilitar en todo momento la operación de nuestros clientes, por ese motivo, se necesita contar con una API REST que contenga una serie de servicios que permita interactuar con el banco de forma autónoma para nuestros clientes.
+La API que vamos a desarrollar es privada, accesible sólo a usuarios registrados e identificados por el banco. En este caso usaremos, BasicAuthentication para generar una clave que permita al usuario interactuar con nuestros servicios. Solo un usuario cliente puede consultar sus propios datos.
+
+Los servicios por generar que puedan ser utilizados por los clientes son los siguientes:
+-OBTENER DATOS DE UN CLIENTE: Un cliente autenticado puede consultar sus propios datos.✔️
+-OBTENER SALDO DE CUENTA DE UN CLIENTE: Un cliente autenticado puede obtener el tipo de cuenta y su saldo.✔️
+-OBTENER MONTO DE PRESTAMOS DE UN CLIENTE: Un cliente autenticado puede obtener el tipo de préstamo y total del mismo.✔️
+-OBTENER MONTO DE PRESTAMOS DE UNA SUCURSAL: Un empleado autenticado puede obtener el listado de préstamos otorgados de una sucursal determinada.✔️
+-OBTENER TARJETAS ASOCIADAS A UN CLIENTE: Un empleado autenticado puede obtener el listado de tarjetas de crédito de un cliente determinado.✔️
+-GENERAR UNA SOLICITUD DE PRESTAMO PARA UN CLIENTE: Un empleado autenticado puede solicitar un préstamo para un cliente, registrado el mismo y acreditando el saldo en su cuenta.✔️
+-ANULAR SOLICITUD DE PRESTAMO DE CLIENTE: Un empleado autenticado puede anular un préstamo para un cliente, revirtiendo el monto correspondiente. ✔️
+-MODIFICAR DIRECCION DE UN CLIENTE: El propio cliente autenticado o un empleado puede modificar las direcciones.✔️
+-LISTADO DE TODAS LAS SUCURSALES: Un endpoint público que devuelve el listado todas las sucursales con la información correspondiente.✔️
