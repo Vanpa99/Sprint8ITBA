@@ -8,10 +8,10 @@ const ClienteDatos = () => {
     useEffect(() => {
         const fetchCliente = async () => {
             try {
-                const response = await apiClient.get('cliente/datos/', {
+                const response = await apiClient.get('api/clientes/', {
                     auth: {
-                        username: 'tu_usuario', // Reemplaza con tus credenciales
-                        password: 'tu_contraseña',
+                        username: 'vanpa', // Reemplaza con tus credenciales
+                        password: '123',
                     },
                 });
                 setCliente(response.data);
