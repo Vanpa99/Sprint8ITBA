@@ -20,3 +20,4 @@ Los servicios por generar que puedan ser utilizados por los clientes son los sig
 -ANULAR SOLICITUD DE PRESTAMO DE CLIENTE: Un empleado autenticado puede anular un préstamo para un cliente, revirtiendo el monto correspondiente. ✔️
 -MODIFICAR DIRECCION DE UN CLIENTE: El propio cliente autenticado o un empleado puede modificar las direcciones.✔️
 -LISTADO DE TODAS LAS SUCURSALES: Un endpoint público que devuelve el listado todas las sucursales con la información correspondiente.✔️
+DASDAS
