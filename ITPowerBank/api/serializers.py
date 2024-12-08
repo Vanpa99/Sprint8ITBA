@@ -1,8 +1,18 @@
 from rest_framework import serializers
 from .models import Cliente, Cuenta, Prestamo, Tarjeta, Sucursal
+from django.contrib.auth.models import User
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username']
+
 
 # Serializer para Cliente
 class ClienteSerializer(serializers.ModelSerializer):
+
+    user = UserSerializer()
+
     class Meta:
         model = Cliente
         fields = '__all__'  # Todos los campos del modelo Cliente

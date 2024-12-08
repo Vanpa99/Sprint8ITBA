@@ -16,6 +16,7 @@ class ClienteViewSet(viewsets.ModelViewSet):
     serializer_class = ClienteSerializer
     permission_classes = [IsAuthenticated]  # Solo clientes autenticados pueden acceder
 
+    
 
 # Vista para Cuenta
 class CuentaViewSet(viewsets.ModelViewSet):

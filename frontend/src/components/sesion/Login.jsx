@@ -1,10 +1,13 @@
 import { useState } from "react";
-import api, { setBasicAuth } from "../api/axiosConfig";
+import api, { setBasicAuth } from "../../api/axiosConfig";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -12,11 +15,20 @@ const Login = () => {
 
     try {
       const response = await api.get("clientes/"); // Realiza una solicitud protegida
+      const users = response.data;
 
-      console.log(response.statusText);
-      // Aquí puedes redirigir al usuario o almacenar el estado de autenticación
+      for (const user of users) {
+        if ((user.user.username = username)) {
+          localStorage.setItem("user", JSON.stringify(user));
+        }
+      }
+
+      if (response.statusText === "OK") {
+        navigate("/");
+      }
     } catch (err) {
       setError("Credenciales inválidas");
+      console.log("error");
     }
   };
 

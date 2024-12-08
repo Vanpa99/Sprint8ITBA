@@ -8,11 +8,12 @@ import random
 
 # Modelo de Cliente
 class Cliente(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE) #AGREGADO CLIENTE-USER RELACION
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True) #AGREGADO CLIENTE-USER RELACION
     nombre = models.CharField(max_length=100)  # Nombre completo
     email = models.EmailField(unique=True)     # Email único
     direccion = models.CharField(max_length=255)  # Dirección postal
     telefono = models.CharField(max_length=15, null=True, blank=True)  # Teléfono opcional
+    contrasena = models.CharField(max_length=50)
 
     def __str__(self):
         return self.nombre
