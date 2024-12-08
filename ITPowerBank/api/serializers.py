@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username']
+        fields = ['id', 'username', 'password']
 
 
 # Serializer para Cliente
@@ -16,6 +16,21 @@ class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
         fields = '__all__'  # Todos los campos del modelo Cliente
+
+    def create(self, validated_data):
+        # Extraemos los datos del usuario
+        user_data = validated_data.pop('user')
+        
+        # Crear el usuario con los datos proporcionados en `user_data`
+        user = User.objects.create_user(
+            username=user_data['username'],
+            password=user_data['password']
+        )
+        
+        # Crear el cliente asociado al usuario creado
+        cliente = Cliente.objects.create(user=user, **validated_data)
+        return cliente
+
 
 
 # Serializer para Cuenta

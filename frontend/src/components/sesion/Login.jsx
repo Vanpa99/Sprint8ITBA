@@ -9,7 +9,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSession = async (e) => {
     e.preventDefault();
     setBasicAuth(username, password); // Configura las credenciales
 
@@ -35,7 +35,7 @@ const Login = () => {
   return (
     <div>
       <h1>Iniciar Sesión</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSession}>
         <div>
           <label>Usuario:</label>
           <input
