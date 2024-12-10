@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import ClienteDatos from "./components/ClienteDatos";
 import Login from "./components/sesion/Login";
-import Home from "./components/Home";
+import Home from "./pages/Home";
 import PrivateRoutes from "./components/auth/PrivateAuth";
 import Page404 from "./components/sesion/Page404";
 
