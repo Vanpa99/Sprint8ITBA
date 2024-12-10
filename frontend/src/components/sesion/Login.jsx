@@ -10,7 +10,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSession = async (e) => {
     e.preventDefault();
     setBasicAuth(username, password); // Configura las credenciales
 

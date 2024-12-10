@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User 
+from django.core.validators import MinLengthValidator
 # Create your models here.
 from django.db import models
 from datetime import timedelta
@@ -10,10 +11,12 @@ import random
 class Cliente(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True) #AGREGADO CLIENTE-USER RELACION
     nombre = models.CharField(max_length=100)  # Nombre completo
+    apellido = models.CharField(max_length=100)  # Apellido completo
     email = models.EmailField(unique=True)     # Email único
+    dni = models.CharField(max_length=9, unique=True, validators=[MinLengthValidator(7)])
     direccion = models.CharField(max_length=255)  # Dirección postal
     telefono = models.CharField(max_length=15, null=True, blank=True)  # Teléfono opcional
-    contrasena = models.CharField(max_length=50)
+    # contrasena = models.CharField(max_length=50)
 
     def __str__(self):
         return self.nombre
@@ -41,12 +44,18 @@ class Prestamo(models.Model):
 
 
 # Modelo de Tarjeta
+
+def get_default_fecha_vencimiento():
+    return timezone.now() + timedelta(days=365)
+
+
+
 class Tarjeta(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='tarjetas')  # Relación con Cliente
     marca = models.CharField(max_length=10, choices=[("VISA", "Visa"), ( "MASTERCARD","Mastercard")], default="VISA") 
     numero = models.CharField(max_length=16, unique=True)  # Número de tarjeta único
     tipo_tarjeta = models.CharField(max_length=50, choices=[("DEBITO", "Debito"), ( "CREDITO","Credito")])  # Ej.: "Crédito", "Débito"
-    fecha_vencimiento = models.DateField(default= timezone.now() + timedelta(days=365) )  # Fecha de vencimiento
+    fecha_vencimiento = models.DateField(default=get_default_fecha_vencimiento )  # Fecha de vencimiento
     fecha_emicion = models.DateField(default= timezone.now)  # Fecha de vencimiento
     
 
