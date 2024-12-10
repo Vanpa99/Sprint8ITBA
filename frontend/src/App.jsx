@@ -3,8 +3,6 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import PrivateRoutes from "./components/auth/PrivateRoutes";
 import Login from "./components/sesion/Login";
-import Home from "./pages/Home";
-import PrivateRoutes from "./components/auth/PrivateAuth";
 import Page404 from "./components/sesion/Page404";
 
 function App() {

@@ -2,6 +2,8 @@ import { useState } from "react";
 import api, { setBasicAuth } from "../../api/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import sesion from "../sesion/sesion.module.css";
+import InputField from "../UI/InputField";
+import Boton from "../UI/Button";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -40,7 +42,7 @@ const Login = () => {
           Iniciar Sesión
       </h2>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSession} >
         
         <InputField
           className={sesion.inputField}
@@ -65,7 +67,7 @@ const Login = () => {
 
         {error && <p style={{ color: "red" }}>{error}</p>}
 
-        <button type="submit">Iniciar sesión</button>
+        <Boton type="submit" text="Iniciar Sesión" />
         
       </form>
     </div>

@@ -1,4 +1,4 @@
-import Button from "../components/common/Button";
+import Button from "../components/UI/Button";
 import { useNavigate } from "react-router-dom";
 import ClienteDatos from "./ClientesDatos";
 function Home() {
