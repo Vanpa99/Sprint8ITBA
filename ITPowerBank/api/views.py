@@ -56,20 +56,36 @@ def obtener_datos_cliente(request):
     return Response(serializer.data)
 
 
-# Obtener saldo de cuenta de un cliente:
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def obtener_saldo(request):
-    try:
-        cuenta = Cuenta.objects.get(cliente=request.user.id)  # Relación con cliente autenticado
-    except Cuenta.DoesNotExist:
-        return Response({"error": "Cuenta no encontrada"}, status=status.HTTP_404_NOT_FOUND)
+# # Obtener saldo de cuenta de un cliente:
+# @api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+# def obtener_saldo(request):
+#     try:
+#         cuenta = Cuenta.objects.get(cliente=request.user.id)  # Relación con cliente autenticado
+#     except Cuenta.DoesNotExist:
+#         return Response({"error": "Cuenta no encontrada"}, status=status.HTTP_404_NOT_FOUND)
     
-    return Response({
-        "tipo_cuenta": cuenta.tipo_cuenta,
-        "saldo": str(cuenta.saldo)  # Convertimos el saldo a string para mostrar
-    })
+#     return Response({
+#         "tipo_cuenta": cuenta.tipo_cuenta,
+#         "saldo": str(cuenta.saldo)  # Convertimos el saldo a string para mostrar
+#     })
 
+
+
+@api_view(['GET'])
+def obtener_saldo(request):
+    cuentas = Cuenta.objects.filter(cliente=request.user.id)  # Filtrar todas las cuentas del cliente
+
+    if not cuentas.exists():  # Si no hay cuentas
+        return Response({"error": "No se encontraron cuentas asociadas"}, status=status.HTTP_404_NOT_FOUND)
+
+    # Serializar y devolver todas las cuentas
+    cuentas_serializadas = [
+        {"tipo_cuenta": cuenta.tipo_cuenta, "saldo": str(cuenta.saldo)}
+        for cuenta in cuentas
+    ]
+
+    return Response(cuentas_serializadas)
 
 # Obtener monto de préstamos de un cliente:
 @api_view(['GET'])
