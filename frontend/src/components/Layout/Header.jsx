@@ -9,3 +9,5 @@ function Header({ handleLogout }) {
       </header>
     );
   }
+
+  export default Header;

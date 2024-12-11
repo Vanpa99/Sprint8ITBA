@@ -3,7 +3,8 @@ import api, { setBasicAuth } from "../../api/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import sesion from "../sesion/sesion.module.css";
 import InputField from "../UI/InputField";
-import Boton from "../UI/Button";
+import Button from "../UI/Button";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -59,7 +60,7 @@ const Login = () => {
           className={sesion.inputField}
           label="Contraseña:"
           type="password"
-          value={username}
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Ingresa tu contraseña"
           required
@@ -67,7 +68,12 @@ const Login = () => {
 
         {error && <p style={{ color: "red" }}>{error}</p>}
 
-        <Boton type="submit" text="Iniciar Sesión" />
+        <Button 
+          className={sesion.boton} 
+          type="submit" 
+          text="Iniciar Sesión" />
+
+        <p>¿No tienes una cuenta? <Link to="/registro">¡Registrate!</Link></p>
         
       </form>
     </div>

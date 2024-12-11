@@ -78,7 +78,7 @@ function Registro() {
 
             <p className={registro.pregunta}>
                 ¿Ya tienes una cuenta? 
-                <a href="/login">¡Iniciar sesión!</a>
+                <a href="/">¡Iniciar sesión!</a>
             </p>
         </div>
 
