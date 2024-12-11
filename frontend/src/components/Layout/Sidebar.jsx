@@ -1,28 +1,27 @@
-import Link from "next/link";
-
+import { Link } from "react-router-dom";
 
 function Sidebar() {
     return (
-      <aside className={styles.contNav}>
+      <aside className="sidebar">
         <nav>
           <ul>
             <li>
-              <Link href="/Inicio">Inicio</Link>
+              <Link to="/Inicio">Inicio</Link>
             </li>
             <li>
-              <Link href="/cuentas">Cuentas</Link>
+              <Link to="/cuentas">Cuentas</Link>
             </li>
             <li>
-              <Link href="/pagar">Pagar</Link>
+              <Link to="/pagar">Pagar</Link>
             </li>
             <li>
-              <Link href="/prestamos">Préstamos</Link>
+              <Link to="/prestamos">Préstamos</Link>
             </li>
             <li>
-              <Link href="/contacto">Contacto</Link>
+              <Link to="/contacto">Contacto</Link>
             </li>
             <li>
-              <Link href="/mis-tarjetas">Mis Tarjetas</Link>
+              <Link to="/mis-tarjetas">Mis Tarjetas</Link>
             </li>
           </ul>
         </nav>

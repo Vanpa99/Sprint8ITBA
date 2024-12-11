@@ -1,20 +1,24 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import ClienteDatos from "./components/ClienteDatos";
 import Home from "./pages/Home";
 import PrivateRoutes from "./components/auth/PrivateRoutes";
 import Login from "./components/sesion/Login";
+import Registro from "./components/sesion/Registro";
 import Page404 from "./components/sesion/Page404";
+import Sidebar from "./components/Layout/Sidebar";
+import "./styles/global.css";
 
 function App() {
   return (
     <Router>
-      {/* <div className={styles.contenedor}> */}
-      {/* <Sidebar /> */}
-      {/* <div className={styles.areaPrincipal}> */}
+      <div className="contenedor">
+      <Sidebar />
+      <div className="areaPrincipal">
 
       <Routes>
         {/* RUTAS PUBLICAS */}
         <Route path="/login" element={<Login />} />
+        <Route path="/registro" element={<Registro />} />
 
         {/* RUTAS PRIVADAS */}
         <Route element={<PrivateRoutes />}>
@@ -27,8 +31,8 @@ function App() {
 
         <Route path="*" element={<Page404 />} />
       </Routes>
-      {/* </div>
-        </div> */}
+      </div>
+        </div>
     </Router>
   );
 }
