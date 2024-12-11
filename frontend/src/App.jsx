@@ -41,7 +41,7 @@ function App() {
           <Footer />
         </>
       ) : (
-<Routes>
+        <Routes>
           <Route path="/" element={<Login onLogin={handleLogin} />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="*" element={<Page404 />} />

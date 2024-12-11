@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import api from "../api/axiosConfig";
-import CuentasCard from "./cuenta/CuentasCard";
+import CuentasCard from "../components/cuenta/CuentasCard";
 
 function Cuentas({ cliente }) {
   const [datos, setDatos] = useState([]);

@@ -10,7 +10,7 @@ function Home() {
   const handleSession = () => {
     localStorage.removeItem("user");
 
-    navigate("/login");
+    navigate("/");
   };
 
   return (
