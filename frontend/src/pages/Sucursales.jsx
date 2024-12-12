@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import api from "../api/axiosConfig";
+import SucursalesCard from "../components/sucursales/SucursalesCard";
 
 function Sucursales({ cliente }) {
   const [datos, setDatos] = useState([]);
@@ -16,13 +17,10 @@ function Sucursales({ cliente }) {
     <div>
       <h2>Todas nuestras Sucursales</h2>
 
-      {datos.map((dato) => (
-        <div key={dato.id}>
-          <h4>Sucursal: {dato.nombre} </h4>
-          <h4>Direccion: {dato.direccion} </h4>
-          <h4>Telefono: {dato.telefono} </h4>
-        </div>
-      ))}
+      {datos &&
+        datos.map((dato) => (
+          <SucursalesCard key={dato.id} sucursal={dato} cliente={cliente} />
+        ))}
     </div>
   );
 }

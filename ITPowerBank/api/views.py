@@ -49,11 +49,24 @@ class SucursalViewSet(viewsets.ModelViewSet):
 def obtener_datos_cliente(request):
     try:
         cliente = Cliente.objects.get(id=request.user.id)  # Asumimos que el ID del usuario coincide con el cliente
+        es_cliente= True
     except Cliente.DoesNotExist:
+        es_cliente= False
         return Response({"error": "Cliente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
     
-    serializer = ClienteSerializer(cliente)
-    return Response(serializer.data)
+    if request.user.is_superuser:
+        rol = "superadmin"
+    elif request.user.is_staff:
+        rol = "empleado"
+    elif es_cliente:
+        rol = "cliente"
+    else:
+        rol = "desconocido"
+
+
+    datos_cliente = ClienteSerializer(cliente).data if es_cliente else {}
+    datos_cliente['rol'] = rol  # Agregar el rol al JSON
+    return Response(datos_cliente, status=status.HTTP_200_OK)
 
 
 # # Obtener saldo de cuenta de un cliente:
