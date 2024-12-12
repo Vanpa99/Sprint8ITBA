@@ -5,8 +5,9 @@ import styles from "./Header.module.css";
 import logo from "../../assets/LogoITPowerBank.png";
 
 function Header({ handleLogout }) {
-
   const navigate = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleLogoutAndRedirect = () => {
     handleLogout();
@@ -18,7 +19,9 @@ function Header({ handleLogout }) {
       <div className={styles.logo}>
         <img src={logo} alt="Logo de la Empresa" height={50} />
       </div>
-      <h2 className={styles.saludo}>¡Bienvenido!</h2>
+      <h2 className={styles.saludo}>
+        ¡Bienvenido, señor {user.rol} {user.nombre} !
+      </h2>
       <Button
         onClick={handleLogoutAndRedirect}
         text="Cerrar sesión"
