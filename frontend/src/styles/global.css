@@ -23,7 +23,7 @@
 }
 
 .areaPrincipal {
-    margin: 20px;
+    margin: 50px;
     flex: 1;
 }
 
@@ -33,6 +33,6 @@
     }
     
     .areaPrincipal {
-      margin: 5px;
+      margin: 20px;
     }
 }
