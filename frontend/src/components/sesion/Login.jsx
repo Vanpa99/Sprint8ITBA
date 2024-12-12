@@ -15,13 +15,11 @@ const Login = () => {
     setBasicAuth(username, password); // Configura las credenciales
 
     try {
-      const response = await api.get("clientes/"); // Realiza una solicitud protegida
-      const users = response.data;
+      const response = await api.get("cliente/datos/"); // Realiza una solicitud protegida
+      const user = response.data;
 
-      for (const user of users) {
-        if ((user.user.username = username)) {
-          localStorage.setItem("user", JSON.stringify(user));
-        }
+      if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
       }
 
       if (response.statusText === "OK") {

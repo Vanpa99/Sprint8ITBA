@@ -1,15 +1,30 @@
-import { useEffect } from "react";
+import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 import api from "../api/axiosConfig";
+import CuentasCard from "./cuenta/CuentasCard";
 
 function Cuentas({ cliente }) {
+  const [datos, setDatos] = useState([]);
+
   useEffect(() => {
-    api.get(`cliente/${cliente.id}`);
+    api
+      .get(`cliente/saldo/`)
+      .then(({ data }) => setDatos(data))
+      .catch(({ err }) => console.error(err));
   }, [cliente]);
 
-  return <div></div>;
+  return (
+    <section>
+      <h4>Cuentas</h4>
+
+      {datos.map((dato, index) => (
+        <CuentasCard key={index} dato={dato} />
+      ))}
+    </section>
+  );
 }
 export default Cuentas;
 
 Cuentas.propTypes = {
-  cliente: String,
+  cliente: PropTypes.object,
 };

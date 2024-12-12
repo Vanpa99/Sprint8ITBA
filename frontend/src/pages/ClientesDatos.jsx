@@ -1,3 +1,5 @@
+import Cuentas from "../components/Cuentas";
+
 const ClienteDatos = () => {
   const cliente = JSON.parse(localStorage.getItem("user"));
 
@@ -15,7 +17,7 @@ const ClienteDatos = () => {
           <strong>DNI:</strong> {cliente.dni}
         </p>
 
-        {/* SALDO */}
+        <Cuentas cliente={cliente} />
       </div>
     </div>
   );
