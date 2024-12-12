@@ -1,14 +1,13 @@
-import React from "react";
 function InputField({
-    className,
-    label,
-    type,
-    value,
-    onChange,
-    placeholder,
-    disabled,
-    id,
-    required,
+  className,
+  label,
+  type,
+  value,
+  onChange,
+  placeholder,
+  disabled,
+  id,
+  required,
 }) {
   return (
     <div>

@@ -12,6 +12,7 @@ import Cuentas from "./pages/Cuentas";
 import Prestamos from "./pages/Prestamos";
 import Sucursales from "./pages/Sucursales";
 import MisDatos from "./pages/MisDatos";
+import Tarjetas from "./pages/Tarjetas";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -43,6 +44,7 @@ function App() {
                 <Route path="/cuentas" element={<Cuentas />} />
                 <Route path="/prestamos" element={<Prestamos />} />
                 <Route path="/sucursales" element={<Sucursales />} />
+                <Route path="/tarjetas" element={<Tarjetas />} />
                 <Route path="*" element={<Page404 />} />
               </Routes>
             </div>
