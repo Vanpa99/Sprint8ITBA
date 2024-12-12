@@ -49,27 +49,24 @@ class SucursalViewSet(viewsets.ModelViewSet):
 def obtener_datos_cliente(request):
     try:
         cliente = Cliente.objects.get(id=request.user.id)  # Asumimos que el ID del usuario coincide con el cliente
+        es_cliente= True
     except Cliente.DoesNotExist:
+        es_cliente= False
         return Response({"error": "Cliente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
     
-    serializer = ClienteSerializer(cliente)
-    return Response(serializer.data)
+    if request.user.is_superuser:
+        rol = "superadmin"
+    elif request.user.is_staff:
+        rol = "empleado"
+    elif es_cliente:
+        rol = "cliente"
+    else:
+        rol = "desconocido"
 
 
-# # Obtener saldo de cuenta de un cliente:
-# @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
-# def obtener_saldo(request):
-#     try:
-#         cuenta = Cuenta.objects.get(cliente=request.user.id)  # Relación con cliente autenticado
-#     except Cuenta.DoesNotExist:
-#         return Response({"error": "Cuenta no encontrada"}, status=status.HTTP_404_NOT_FOUND)
-    
-#     return Response({
-#         "tipo_cuenta": cuenta.tipo_cuenta,
-#         "saldo": str(cuenta.saldo)  # Convertimos el saldo a string para mostrar
-#     })
-
+    datos_cliente = ClienteSerializer(cliente).data if es_cliente else {}
+    datos_cliente['rol'] = rol  # Agregar el rol al JSON
+    return Response(datos_cliente, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
@@ -140,10 +137,35 @@ def anular_prestamo(request, prestamo_id):
 @api_view(['PATCH'])
 @permission_classes([IsAuthenticated])
 def modificar_direccion(request, cliente_id):
-    cliente = Cliente.objects.get(id=cliente_id)
-    cliente.direccion = request.data.get('direccion')
+    try:
+        cliente = Cliente.objects.get(id=cliente_id)
+        es_cliente = True
+    except Cliente.DoesNotExist:
+        es_cliente= False
+        return Response({"error": "Cliente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+
+    nueva_direccion = request.data.get('direccion')
+    if not nueva_direccion:
+        return Response({"error": "El campo 'direccion' es requerido"}, status=status.HTTP_400_BAD_REQUEST)
+
+    cliente.direccion = nueva_direccion
     cliente.save()
-    return Response(ClienteSerializer(cliente).data)
+
+
+    if request.user.is_superuser:
+        rol = "superadmin"
+    elif request.user.is_staff:
+        rol = "empleado"
+    elif es_cliente:
+        rol = "cliente"
+    else:
+        rol = "desconocido"
+
+
+    datos_cliente = ClienteSerializer(cliente).data if es_cliente else {}
+    datos_cliente['rol'] = rol  # Agregar el rol al JSON
+    return Response(datos_cliente, status=status.HTTP_200_OK)
 
 
 #Listado de todas las sucursales (Público)
