@@ -6,6 +6,7 @@ import sesion from "../sesion/sesion.module.css";
 import InputField from "../UI/InputField";
 import Button from "../UI/Button";
 import { Link } from "react-router-dom";
+import Sucursales from "../../pages/Sucursales";
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState("");
@@ -16,7 +17,6 @@ const Login = ({ onLogin }) => {
 
   const handleSession = async (e) => {
     e.preventDefault();
-    onLogin(true);
     setBasicAuth(username, password); // Configura las credenciales
 
     try {
@@ -25,9 +25,7 @@ const Login = ({ onLogin }) => {
 
       if (user) {
         localStorage.setItem("user", JSON.stringify(user));
-      }
-
-      if (response.statusText === "OK") {
+        onLogin(); // Llama a onLogin para actualizar el estado de autenticación
         navigate("/inicio");
       }
     } catch (err) {
@@ -71,11 +69,13 @@ const Login = ({ onLogin }) => {
         </p>
       </form>
     </div>
+
+    // <Sucursales />
   );
 };
 
 export default Login;
 
 Login.propTypes = {
-  onLogin: PropTypes.bool,
+  onLogin: PropTypes.func.isRequired,
 };

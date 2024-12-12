@@ -1,27 +1,22 @@
 import { Link } from "react-router-dom";
+import styles from "./Sidebar.module.css";
 
 function Sidebar() {
     return (
-      <aside className="sidebar">
+      <aside className={styles.contNav}>
         <nav>
           <ul>
             <li>
               <Link to="/Inicio">Inicio</Link>
             </li>
             <li>
+              <Link to="/mis-datos">Mis Datos</Link>
+            </li>
+            <li>
               <Link to="/cuentas">Cuentas</Link>
             </li>
             <li>
-              <Link to="/pagar">Pagar</Link>
-            </li>
-            <li>
-              <Link to="/prestamos">Préstamos</Link>
-            </li>
-            <li>
-              <Link to="/contacto">Contacto</Link>
-            </li>
-            <li>
-              <Link to="/mis-tarjetas">Mis Tarjetas</Link>
+              <Link to="/sucursales">Sucursales</Link>
             </li>
           </ul>
         </nav>
