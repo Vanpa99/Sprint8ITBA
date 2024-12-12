@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --claro: #ebf4fb;
+    --oscuro: #172630;
+    --difuminado: #17263028;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--claro);
+}
+
+.contenedor {
+    display: flex;
+    flex: 1 ;
+}
+
+.areaPrincipal {
+    margin: 20px;
+    flex: 1;
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+      flex-direction: column;
+    }
+    
+    .areaPrincipal {
+      margin: 5px;
+    }
+}

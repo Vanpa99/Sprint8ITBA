@@ -1,4 +1,4 @@
-import Cuentas from "../components/Cuentas";
+import Cuentas from "./Cuentas";
 
 const ClienteDatos = () => {
   const cliente = JSON.parse(localStorage.getItem("user"));
@@ -16,8 +16,7 @@ const ClienteDatos = () => {
         <p>
           <strong>DNI:</strong> {cliente.dni}
         </p>
-
-        <Cuentas cliente={cliente} />
+        {/* <Cuentas cliente={cliente} /> */}
       </div>
     </div>
   );

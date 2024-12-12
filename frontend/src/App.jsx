@@ -1,37 +1,62 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-// import ClienteDatos from "./components/ClienteDatos";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import PrivateRoutes from "./components/auth/PrivateRoutes";
 import Login from "./components/sesion/Login";
-import Home from "./pages/Home";
-import PrivateRoutes from "./components/auth/PrivateAuth";
+import Registro from "./components/sesion/Registro";
 import Page404 from "./components/sesion/Page404";
+import Sidebar from "./components/Layout/Sidebar";
+import "./styles/global.css";
+import { useState } from "react";
+import Header from "./components/Layout/Header";
+import Footer from "./components/Layout/Footer";
+import Cuentas from "./pages/Cuentas";
+import Prestamos from "./pages/Prestamos";
+import Sucursales from "./pages/Sucursales";
+import MisDatos from "./pages/MisDatos";
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem("isAuthenticated") === "true"
+  );
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("user");
+  };
+
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+    localStorage.setItem("isAuthenticated", "true");
+  };
+
   return (
-    <Router>
-      {/* <div className={styles.contenedor}> */}
-      {/* <Sidebar /> */}
-      {/* <div className={styles.areaPrincipal}> */}
-
-      <Routes>
-        {/* RUTAS PUBLICAS */}
-        <Route path="/login" element={<Login />} />
-
-        {/* RUTAS PRIVADAS */}
-        <Route element={<PrivateRoutes />}>
-          <Route path="/" element={<Home />} />
-        </Route>
-
-        {/* <Route path="/cuentas" element={<Cuentas />} />
-            <Route path="/pagar" element={<Pagar />} />
-            <Route path="/prestamos" element={<Prestamos />} /> */}
-
-        <Route path="*" element={<Page404 />} />
-      </Routes>
-      {/* </div>
-        </div> */}
-    </Router>
+    <BrowserRouter>
+      {isAuthenticated ? (
+        <>
+          <Header handleLogout={handleLogout} />
+          <div className="contenedor">
+            <Sidebar />
+            <div className="areaPrincipal">
+              <Routes>
+                <Route path="/inicio" element={<Home />} />
+                <Route path="/mis-datos" element={<MisDatos />} />
+                <Route path="/cuentas" element={<Cuentas />} />
+                <Route path="/prestamos" element={<Prestamos />} />
+                <Route path="/sucursales" element={<Sucursales />} />
+                <Route path="*" element={<Page404 />} />
+              </Routes>
+            </div>
+          </div>
+          <Footer />
+        </>
+      ) : (
+        <Routes>
+          <Route path="/" element={<Login onLogin={handleLogin} />} />
+          <Route path="/registro" element={<Registro />} />
+          <Route path="*" element={<Page404 />} />
+        </Routes>
+      )}
+    </BrowserRouter>
   );
 }
 

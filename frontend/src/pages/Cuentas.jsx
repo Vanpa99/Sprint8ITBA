@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import api from "../api/axiosConfig";
-import CuentasCard from "./cuenta/CuentasCard";
+import CuentasCard from "../components/cuenta/CuentasCard";
 
 function Cuentas({ cliente }) {
   const [datos, setDatos] = useState([]);
@@ -15,7 +15,7 @@ function Cuentas({ cliente }) {
 
   return (
     <section>
-      <h4>Cuentas</h4>
+      <h2>Cuentas</h2>
 
       {datos.map((dato, index) => (
         <CuentasCard key={index} dato={dato} />
