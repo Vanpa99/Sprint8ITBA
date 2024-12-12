@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import api, { setBasicAuth } from "../../api/axiosConfig";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +7,7 @@ import InputField from "../UI/InputField";
 import Button from "../UI/Button";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -15,6 +16,7 @@ const Login = () => {
 
   const handleSession = async (e) => {
     e.preventDefault();
+    onLogin(true);
     setBasicAuth(username, password); // Configura las credenciales
 
     try {
@@ -26,7 +28,7 @@ const Login = () => {
       }
 
       if (response.statusText === "OK") {
-        navigate("/");
+        navigate("/inicio");
       }
     } catch (err) {
       setError("Credenciales inválidas");
@@ -36,13 +38,9 @@ const Login = () => {
 
   return (
     <div className={sesion.formContainer}>
-      
-      <h2 className={sesion.sectionTitle}>
-          Iniciar Sesión
-      </h2>
+      <h2 className={sesion.sectionTitle}>Iniciar Sesión</h2>
 
-      <form onSubmit={handleSession} >
-        
+      <form onSubmit={handleSession}>
         <InputField
           className={sesion.inputField}
           label="Usuario:"
@@ -66,16 +64,18 @@ const Login = () => {
 
         {error && <p style={{ color: "red" }}>{error}</p>}
 
-        <Button 
-          className={sesion.boton} 
-          type="submit" 
-          text="Iniciar Sesión" />
+        <Button className={sesion.boton} type="submit" text="Iniciar Sesión" />
 
-        <p>¿No tienes una cuenta? <Link to="/registro">¡Registrate!</Link></p>
-        
+        <p>
+          ¿No tienes una cuenta? <Link to="/registro">¡Registrate!</Link>
+        </p>
       </form>
     </div>
   );
 };
 
 export default Login;
+
+Login.propTypes = {
+  onLogin: PropTypes.bool,
+};

@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 // import ClienteDatos from "./components/ClienteDatos";
 import Home from "./pages/Home";
 // import PrivateRoutes from "./components/auth/PrivateRoutes";
@@ -8,14 +8,14 @@ import Page404 from "./components/sesion/Page404";
 import Sidebar from "./components/Layout/Sidebar";
 import "./styles/global.css";
 import { useState } from "react";
+import Header from "./components/Layout/Header";
+import Footer from "./components/Layout/Footer";
+import Cuentas from "./pages/Cuentas";
+import Pagar from "./pages/Pagar";
+import Prestamos from "./pages/Prestamos";
 
 function App() {
-
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const handleLogin = () => {
-    setIsAuthenticated(true);
-  };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
@@ -27,11 +27,11 @@ function App() {
       {isAuthenticated ? (
         <>
           <Header handleLogout={handleLogout} />
-          <div className={styles.contenedor}>
+          <div className={"styles.contenedor"}>
             <Sidebar />
-            <div className={styles.areaPrincipal}>
+            <div className={"styles.areaPrincipal"}>
               <Routes>
-                <Route path="/" element={<Inicio />} />
+                <Route path="/inicio" element={<Home />} />
                 <Route path="/cuentas" element={<Cuentas />} />
                 <Route path="/pagar" element={<Pagar />} />
                 <Route path="/prestamos" element={<Prestamos />} />
@@ -42,10 +42,11 @@ function App() {
         </>
       ) : (
         <Routes>
-          <Route path="/" element={<Login onLogin={handleLogin} />} />
+          <Route path="/" element={<Login onLogin={setIsAuthenticated} />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="*" element={<Page404 />} />
-        </Routes>      )}
+        </Routes>
+      )}
     </BrowserRouter>
   );
 }
