@@ -89,6 +89,7 @@ import sesion from "../sesion/sesion.module.css";
 import InputField from "../UI/InputField";
 import Button from "../UI/Button";
 import { Link } from "react-router-dom";
+import Sucursales from "../../pages/Sucursales";
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState("");
@@ -151,6 +152,8 @@ const Login = ({ onLogin }) => {
         </p>
       </form>
     </div>
+
+    // <Sucursales />
   );
 };
 

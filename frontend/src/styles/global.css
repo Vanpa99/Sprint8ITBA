@@ -10,8 +10,7 @@
     --difuminado: #17263028;
 }
 
-
-body {
+#root {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -20,7 +19,7 @@ body {
 
 .contenedor {
     display: flex;
-    flex: 1;
+    flex: 1 ;
 }
 
 .areaPrincipal {

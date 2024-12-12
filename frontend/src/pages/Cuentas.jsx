@@ -15,7 +15,7 @@ function Cuentas({ cliente }) {
 
   return (
     <section>
-      <h4>Cuentas</h4>
+      <h2>Cuentas</h2>
 
       {datos.map((dato, index) => (
         <CuentasCard key={index} dato={dato} />

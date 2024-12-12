@@ -16,7 +16,7 @@ const ClienteDatos = () => {
         <p>
           <strong>DNI:</strong> {cliente.dni}
         </p>
-        <Cuentas cliente={cliente} />
+        {/* <Cuentas cliente={cliente} /> */}
       </div>
     </div>
   );

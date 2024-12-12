@@ -9,8 +9,9 @@ import { useState } from "react";
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
 import Cuentas from "./pages/Cuentas";
-import Pagar from "./pages/Pagar";
 import Prestamos from "./pages/Prestamos";
+import Sucursales from "./pages/Sucursales";
+import MisDatos from "./pages/MisDatos";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -38,9 +39,10 @@ function App() {
             <div className="areaPrincipal">
               <Routes>
                 <Route path="/inicio" element={<Home />} />
+                <Route path="/mis-datos" element={<MisDatos />} />
                 <Route path="/cuentas" element={<Cuentas />} />
-                <Route path="/pagar" element={<Pagar />} />
                 <Route path="/prestamos" element={<Prestamos />} />
+                <Route path="/sucursales" element={<Sucursales />} />
                 <Route path="*" element={<Page404 />} />
               </Routes>
             </div>
