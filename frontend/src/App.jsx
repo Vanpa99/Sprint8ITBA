@@ -1,7 +1,5 @@
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
-// import ClienteDatos from "./components/ClienteDatos";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-// import PrivateRoutes from "./components/auth/PrivateRoutes";
 import Login from "./components/sesion/Login";
 import Registro from "./components/sesion/Registro";
 import Page404 from "./components/sesion/Page404";
@@ -15,11 +13,19 @@ import Pagar from "./pages/Pagar";
 import Prestamos from "./pages/Prestamos";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem("isAuthenticated") === "true"
+  );
 
   const handleLogout = () => {
     setIsAuthenticated(false);
     localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("user");
+  };
+
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+    localStorage.setItem("isAuthenticated", "true");
   };
 
   return (
@@ -27,14 +33,15 @@ function App() {
       {isAuthenticated ? (
         <>
           <Header handleLogout={handleLogout} />
-          <div className={"styles.contenedor"}>
+          <div className="contenedor">
             <Sidebar />
-            <div className={"styles.areaPrincipal"}>
+            <div className="areaPrincipal">
               <Routes>
                 <Route path="/inicio" element={<Home />} />
                 <Route path="/cuentas" element={<Cuentas />} />
                 <Route path="/pagar" element={<Pagar />} />
                 <Route path="/prestamos" element={<Prestamos />} />
+                <Route path="*" element={<Page404 />} />
               </Routes>
             </div>
           </div>
@@ -42,7 +49,7 @@ function App() {
         </>
       ) : (
         <Routes>
-          <Route path="/" element={<Login onLogin={setIsAuthenticated} />} />
+          <Route path="/" element={<Login onLogin={handleLogin} />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
