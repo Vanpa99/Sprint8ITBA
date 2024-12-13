@@ -2,6 +2,7 @@ import { useState } from "react";
 import api from "../api/axiosConfig";
 import InputField from "../components/UI/InputField";
 import { HiMiniPencilSquare } from "react-icons/hi2";
+import styles from "./MisDatos.module.css";
 const ClienteDatos = () => {
   const cliente = JSON.parse(localStorage.getItem("user"));
 
@@ -28,24 +29,51 @@ const ClienteDatos = () => {
   };
 
   return (
-    <div>
-      <h1>Datos del Cliente</h1>
+    <div className={styles.formContainer}>
+      <h2 className={styles.sectionTitle}>Datos del Cliente</h2>
       <div>
-        <p>
-          <strong>Nombre:</strong> {cliente.nombre}
-        </p>
-        <p>
-          <strong>Email:</strong> {cliente.email}
-        </p>
-        <p>
-          <strong>DNI:</strong> {cliente.dni}
-        </p>
-        <div className="DISPLAY FLEX">
+        <InputField
+          label="Nombre: "
+          value={cliente.nombre} 
+          disabled={true}
+          className={styles.inputField}
+        />
+
+        <InputField
+          label="Apellido: "
+          value={cliente.apellido}
+          disabled={true}
+          className={styles.inputField}
+        />
+
+        <InputField
+          label="Telefono: "
+          value={cliente.telefono}
+          disabled={true}
+          className={styles.inputField}
+        />
+
+        <InputField
+          label="Email: "
+          value={cliente.email}
+          disabled={true}
+          className={styles.inputField}
+        />
+
+        <InputField 
+          label="DNI: " 
+          value={cliente.dni} 
+          disabled={true} 
+          className={styles.inputField} 
+        />
+
+        <div className={styles.contInput}>
           <InputField
             label="Direccion: "
             value={direccion}
             disabled={cambiar}
             onChange={handleChange}
+            className={styles.inputField}
           />
           <button onClick={() => setCambiar(false)}>
             <HiMiniPencilSquare />
@@ -53,7 +81,7 @@ const ClienteDatos = () => {
         </div>
       </div>
 
-      <button onClick={handleSubmit}> Guardar cambios </button>
+      <button className={styles.boton} onClick={handleSubmit}>Guardar cambios</button>
     </div>
   );
 };
