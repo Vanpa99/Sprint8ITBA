@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import api from "../../api/axiosConfig";
+import styles from "../../pages/Sucursales.module.css";
 
 function SucursalesCard({ sucursal, cliente }) {
   const [prestamoSuc, setPrestamoSuc] = useState(null);
@@ -20,7 +21,7 @@ function SucursalesCard({ sucursal, cliente }) {
 
   return (
     <>
-      <button
+      <button className={styles.sucursalCard}
         disabled={cliente?.rol === "cliente" && false}
         onClick={handleInfoSucursal}
       >
@@ -31,10 +32,13 @@ function SucursalesCard({ sucursal, cliente }) {
 
       {modal &&
         prestamoSuc?.map((prestamo) => (
-          <button onClick={() => setModal(false)} key={prestamo.id}>
+          <button 
+            className={styles.sucursalCard} 
+            onClick={() => setModal(false)} 
+            key={prestamo.id}>
             <p>Monto Generado: {prestamo.monto}</p>
             <p>Tipo de prestamo Generado: {prestamo.tipo_prestamo}</p>
-            <p>Cliente: {prestamo.tipo_prestamo}</p>
+            <p>Cliente: {prestamo.cliente}</p>
           </button>
         ))}
     </>
