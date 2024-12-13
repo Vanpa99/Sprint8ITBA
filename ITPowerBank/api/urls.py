@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import ClienteViewSet, CuentaViewSet, PrestamoViewSet, TarjetaViewSet, SucursalViewSet, obtener_datos_cliente, obtener_saldo, obtener_prestamos_cliente, obtener_prestamos_sucursal, obtener_tarjetas_cliente, generar_prestamo, anular_prestamo, modificar_direccion, listado_sucursales
+from .views import ClienteViewSet, CuentaViewSet, PrestamoViewSet, TarjetaViewSet, SucursalViewSet, crear_prestamo, obtener_datos_cliente, obtener_saldo, obtener_prestamos_cliente, obtener_prestamos_sucursal, obtener_tarjetas_cliente, anular_prestamo, modificar_direccion, listado_sucursales
 
 # Crear el router
 router = DefaultRouter()
@@ -18,7 +18,7 @@ urlpatterns = [
     path('cliente/prestamos/', obtener_prestamos_cliente, name='obtener_prestamos_cliente'),
     path('prestamos/sucursal/<int:sucursal_id>/', obtener_prestamos_sucursal, name='obtener_prestamos_sucursal'),
     path('tarjetas/cliente/<int:cliente_id>/', obtener_tarjetas_cliente, name='obtener_tarjetas_cliente'),
-    path('prestamos/solicitar/', generar_prestamo, name='generar_prestamo'),
+    path('prestamos/solicitar/', crear_prestamo, name='crear_prestamo' ),
     path('prestamos/<int:prestamo_id>/anular/', anular_prestamo, name='anular_prestamo'),
     path('cliente/<int:cliente_id>/modificar-direccion/', modificar_direccion, name='modificar_direccion'),
     path('sucursales/', listado_sucursales, name='listado_sucursales'),

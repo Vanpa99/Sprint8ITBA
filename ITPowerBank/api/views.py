@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework import viewsets
@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.decorators import action
 from .models import Cliente, Cuenta, Prestamo, Tarjeta, Sucursal
 from .serializers import ClienteSerializer, CuentaSerializer, PrestamoSerializer, TarjetaSerializer, SucursalSerializer
+from decimal import Decimal
 
 # Create your views here.
 
@@ -29,6 +30,27 @@ class PrestamoViewSet(viewsets.ModelViewSet):
     queryset = Prestamo.objects.all()
     serializer_class = PrestamoSerializer
     permission_classes = [IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        # Obtener datos del request
+        cliente_id = request.data.get('cliente')
+        monto = request.data.get('monto')
+
+        # Validar que exista una cuenta asociada al cliente
+        cuenta = get_object_or_404(Cuenta, cliente_id=cliente_id)
+
+        # Crear el préstamo usando el serializador
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+
+        # Sumar el monto del préstamo al saldo de la cuenta
+        cuenta.saldo = Decimal(str(monto))  +  cuenta.saldo
+        cuenta.save()
+
+        # Responder con los datos del préstamo creado
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)    
 
 
 # Vista para Tarjeta
@@ -107,30 +129,117 @@ def obtener_prestamos_sucursal(request, sucursal_id):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, IsAdminUser])
 def obtener_tarjetas_cliente(request, cliente_id):
+    try:
+        # Verificar si el cliente existe
+        cliente = Cliente.objects.get(id=cliente_id)
+    except Cliente.DoesNotExist:
+        return Response({"error": "Cliente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+    # Obtener las tarjetas asociadas al cliente
     tarjetas = Tarjeta.objects.filter(cliente_id=cliente_id)
-    serializer = TarjetaSerializer(tarjetas, many=True)
-    return Response(serializer.data)
+    tarjetas_serializer = TarjetaSerializer(tarjetas, many=True)
+
+    # Añadir el nombre del cliente a cada tarjeta serializada
+    tarjetas_con_cliente = [
+        {**tarjeta, "nombre_cliente": cliente.nombre}
+        for tarjeta in tarjetas_serializer.data
+    ]
+
+    return Response(tarjetas_con_cliente, status=status.HTTP_200_OK)
+
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated, IsAdminUser])
+def crear_prestamo(request):
+    # Obtener datos del cuerpo de la solicitud
+    cliente_id = request.data.get('cliente')
+    monto = request.data.get('monto')
+    tipo_prestamo = request.data.get('tipo_prestamo')
+    sucursal_id = request.data.get('sucursal')
+
+    # Validar que todos los datos necesarios estén presentes
+    if not cliente_id or not monto or not tipo_prestamo or not sucursal_id:
+        return Response(
+            {"error": "Faltan datos requeridos: cliente, monto, tipo_prestamo o sucursal."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    # Validar que el monto sea un número
+    try:
+        monto = float(monto)
+        if monto <= 0:
+            raise ValueError
+    except ValueError:
+        return Response(
+            {"error": "El monto debe ser un número positivo."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    # Validar la existencia de la cuenta asociada al cliente
+    cuenta = get_object_or_404(Cuenta, cliente_id=cliente_id)
+
+    # Crear el préstamo
+    serializer = PrestamoSerializer(data=request.data)
+    if serializer.is_valid():
+        prestamo = serializer.save()
+
+        # Sumar el monto al saldo de la cuenta
+        cuenta.saldo += monto
+        cuenta.save()
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # Generar solicitud de préstamo para un cliente (Empleado autenticado)
-@api_view(['POST'])
-@permission_classes([IsAuthenticated, IsAdminUser])
-def generar_prestamo(request):
-    cliente_id = request.data.get('cliente_id')
-    monto = request.data.get('monto')
-    tipo_prestamo = request.data.get('tipo_prestamo')
-    cliente = Cliente.objects.get(id=cliente_id)
-    prestamo = Prestamo.objects.create(cliente=cliente, monto=monto, tipo_prestamo=tipo_prestamo)
-    return Response(PrestamoSerializer(prestamo).data)
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated, IsAdminUser])
+# def generar_prestamo(request):
+#     cliente_id = request.data.get('cliente_id')
+#     monto = request.data.get('monto')
+#     tipo_prestamo = request.data.get('tipo_prestamo')
+#     cliente = Cliente.objects.get(id=cliente_id)
+#     prestamo = Prestamo.objects.create(cliente=cliente, monto=monto, tipo_prestamo=tipo_prestamo)
+#     return Response(PrestamoSerializer(prestamo).data)
+
+
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated, IsAdminUser])
+# def gen_prestamo(request):
+#     cliente_id = request.data.get('cliente_id')
+#     monto = request.data.get('monto')
+#     tipo_prestamo = request.data.get('tipo_prestamo')
+    
+#     # Verifica que el cliente exista
+#     cliente = Cliente.objects.get(id=cliente_id)
+#     prestamo = Prestamo.objects.create(
+#         cliente=cliente,
+#         monto=monto,
+#         tipo_prestamo=tipo_prestamo
+#     )
+#     return Response(PrestamoSerializer(prestamo).data)
 
 
 #Anular solicitud de préstamo de un cliente (Empleado autenticado)
 @api_view(['POST'])
 @permission_classes([IsAuthenticated, IsAdminUser])
 def anular_prestamo(request, prestamo_id):
-    prestamo = Prestamo.objects.get(id=prestamo_id)
+    # Obtener el préstamo, si no existe lanza un 404
+    prestamo = get_object_or_404(Prestamo, id=prestamo_id)
+    
+    # Obtener la cuenta asociada al cliente del préstamo
+    cuenta = get_object_or_404(Cuenta, cliente=prestamo.cliente)
+
+    # Descontar el monto del préstamo del saldo en la cuenta
+    cuenta.saldo -= prestamo.monto
+    cuenta.save()
+
+    # Eliminar el préstamo
     prestamo.delete()
-    return Response({"message": "Préstamo anulado"})
+
+    return Response({"message": "Préstamo anulado y saldo actualizado"})
 
 
 #Modificar dirección de un cliente (Cliente o Empleado autenticado)
