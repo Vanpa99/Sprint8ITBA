@@ -41,17 +41,30 @@ class CuentaSerializer(serializers.ModelSerializer):
 
 # Serializer para Préstamo
 class PrestamoSerializer(serializers.ModelSerializer):
+
+    cliente_nombre = serializers.SerializerMethodField()
+
     class Meta:
         model = Prestamo
         fields = '__all__'
 
+    def get_cliente_nombre(self, obj):
+        return obj.cliente.nombre if obj.cliente else None
+
 
 # Serializer para Tarjeta
 class TarjetaSerializer(serializers.ModelSerializer):
+
+    cliente_nombre = serializers.SerializerMethodField()
+
     class Meta:
         model = Tarjeta
         fields = '__all__'
         read_only_fields = ['numero'] 
+
+
+    def get_cliente_nombre(self, obj):
+        return obj.cliente.nombre if obj.cliente else None
 
 
 # Serializer para Sucursal

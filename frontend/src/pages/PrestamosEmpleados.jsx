@@ -9,6 +9,8 @@ function PrestamosEmpleados() {
   const [clientes, setClientes] = useState(null);
   const [sucursales, setSucursales] = useState(null);
   const [prestamos, setPrestamos] = useState(null);
+  const [deleted, setDeleted] = useState(false);
+  const [created, setCreated] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,9 +33,24 @@ function PrestamosEmpleados() {
         tipo_prestamo: tipoPrestamo,
         sucursal: sucursalId,
       })
-      .then(() => alert("Prestamo creado con exito"))
+      .then(() => {
+        alert("Prestamo creado con exito");
+        setCreated(!created);
+      })
       .catch((err) =>
         console.log("Ocurrio un error, intentelo mas tarde", err)
+      );
+  };
+
+  const handleDeletePrestamo = (dato) => {
+    api
+      .delete(`prestamos/${dato.id}/`)
+      .then(() => {
+        alert("El prestamo ha sido anulado con exito");
+        setDeleted(!deleted);
+      })
+      .catch((err) =>
+        console.log("Ocurrio algo inesperado, intentelo mas tarde", err)
       );
   };
 
@@ -52,73 +69,85 @@ function PrestamosEmpleados() {
       .get("prestamos/")
       .then(({ data }) => setPrestamos(data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [created, deleted]);
 
   return (
     <>
-    <div className={styles.formContainer}>
-      <h2 className={styles.sectionTitle}>
-        Generar un prestamo para un cliente
-      </h2>
+      <div className={styles.formContainer}>
+        <h2 className={styles.sectionTitle}>
+          Generar un prestamo para un cliente
+        </h2>
 
-      <form className={styles.card} onSubmit={handleSubmit}>
-        <div>
-          
-          <label>
-            Cliente:
-            <select className={styles.inputField} name="cliente" id="cliente">
-              <option>Selecciona un cliente</option>
-              {clientes?.map((cliente) => (
-                <option key={cliente.id} value={cliente.id}>
-                  {cliente.nombre} {cliente.apellido}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-        <div>
-          <label>
-            Tipo de Prestamo:
-            <select className={styles.inputField} name="tipo" id="tipo">
-              <option value="PERSONAL">Personal</option>
-              <option value="PRENDARIO">Prendario</option>
-              <option value="HIPOTECARIO">Hipotecario</option>
-            </select>
-          </label>
-        </div>
-        <div>
-          <InputField
-            label="Monto:"
-            type="number"
-            name="monto" id="monto"
-            className={styles.inputField}
+        <form className={styles.card} onSubmit={handleSubmit}>
+          <div>
+            <label>
+              Cliente:
+              <select className={styles.inputField} name="cliente" id="cliente">
+                <option>Selecciona un cliente</option>
+                {clientes?.map((cliente) => (
+                  <option key={cliente.id} value={cliente.id}>
+                    {cliente.nombre} {cliente.apellido}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <div>
+            <label>
+              Tipo de Prestamo:
+              <select className={styles.inputField} name="tipo" id="tipo">
+                <option value="PERSONAL">Personal</option>
+                <option value="PRENDARIO">Prendario</option>
+                <option value="HIPOTECARIO">Hipotecario</option>
+              </select>
+            </label>
+          </div>
+          <div>
+            <InputField
+              label="Monto:"
+              type="number"
+              name="monto"
+              id="monto"
+              className={styles.inputField}
             />
-        </div>
-        <div>
-          <label>
-            Sucursal:
-            <select className={styles.inputField} name="sucursal" id="sucursal">
-              <option>Selecciona una sucursal</option>
-              {sucursales?.map((sucursal) => (
-                <option key={sucursal.id} value={sucursal.id}>
-                  {sucursal.nombre}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-        <button className={styles.boton} type="submit">Generar Prestamo</button>
-      </form>
-
-    </div>
+          </div>
+          <div>
+            <label>
+              Sucursal:
+              <select
+                className={styles.inputField}
+                name="sucursal"
+                id="sucursal"
+              >
+                <option>Selecciona una sucursal</option>
+                {sucursales?.map((sucursal) => (
+                  <option key={sucursal.id} value={sucursal.id}>
+                    {sucursal.nombre}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <button className={styles.boton} type="submit">
+            Generar Prestamo
+          </button>
+        </form>
+      </div>
 
       <div className={styles.formContainer}>
-        <h2 className={styles.sectionTitle}>Eliminar el prestamo de un cliente</h2>
+        <h2 className={styles.sectionTitle}>
+          Eliminar el prestamo de un cliente
+        </h2>
         {prestamos?.map((prestamo) => (
-          <PrestamosCard key={prestamo.id} dato={prestamo} isDelete={true} />
+          <PrestamosCard
+            key={prestamo.id}
+            dato={prestamo}
+            isDelete={true}
+            handleDeletePrestamo={() => handleDeletePrestamo(prestamo)}
+          />
         ))}
       </div>
-      </>
+    </>
   );
 }
 export default PrestamosEmpleados;

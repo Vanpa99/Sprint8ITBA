@@ -139,13 +139,8 @@ def obtener_tarjetas_cliente(request, cliente_id):
     tarjetas = Tarjeta.objects.filter(cliente_id=cliente_id)
     tarjetas_serializer = TarjetaSerializer(tarjetas, many=True)
 
-    # Añadir el nombre del cliente a cada tarjeta serializada
-    tarjetas_con_cliente = [
-        {**tarjeta, "nombre_cliente": cliente.nombre}
-        for tarjeta in tarjetas_serializer.data
-    ]
 
-    return Response(tarjetas_con_cliente, status=status.HTTP_200_OK)
+    return Response(tarjetas_serializer.data, status=status.HTTP_200_OK)
 
 
 
@@ -191,35 +186,6 @@ def crear_prestamo(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-# Generar solicitud de préstamo para un cliente (Empleado autenticado)
-# @api_view(['POST'])
-# @permission_classes([IsAuthenticated, IsAdminUser])
-# def generar_prestamo(request):
-#     cliente_id = request.data.get('cliente_id')
-#     monto = request.data.get('monto')
-#     tipo_prestamo = request.data.get('tipo_prestamo')
-#     cliente = Cliente.objects.get(id=cliente_id)
-#     prestamo = Prestamo.objects.create(cliente=cliente, monto=monto, tipo_prestamo=tipo_prestamo)
-#     return Response(PrestamoSerializer(prestamo).data)
-
-
-# @api_view(['POST'])
-# @permission_classes([IsAuthenticated, IsAdminUser])
-# def gen_prestamo(request):
-#     cliente_id = request.data.get('cliente_id')
-#     monto = request.data.get('monto')
-#     tipo_prestamo = request.data.get('tipo_prestamo')
-    
-#     # Verifica que el cliente exista
-#     cliente = Cliente.objects.get(id=cliente_id)
-#     prestamo = Prestamo.objects.create(
-#         cliente=cliente,
-#         monto=monto,
-#         tipo_prestamo=tipo_prestamo
-#     )
-#     return Response(PrestamoSerializer(prestamo).data)
 
 
 #Anular solicitud de préstamo de un cliente (Empleado autenticado)
