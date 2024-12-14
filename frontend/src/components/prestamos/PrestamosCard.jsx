@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import { FaTrash } from "react-icons/fa";
 import api from "../../api/axiosConfig";
-import inputFields from "../UI/InputField";
 import styles from "../../pages/Prestamos.module.css";
 import InputField from "../UI/InputField";
 
