@@ -13,15 +13,30 @@ function Registro() {
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
+    const userData = {
+      username: data.user,
+      password: data.password,
+    };
+
+    const clienteData = {
+      user: userData,
+      nombre: data.nombre,
+      apellido: data.apellido,
+      email: data.email,
+      dni: data.dni,
+      direccion: data.direccion,
+      telefono: data.telefono,
+    };
+
     api
-      .post("clientes/", data)
+      .post("clientes/", clienteData)
       .then(() => {
         console.log("Exitoso");
         alert("Usuario creado con exito, puede iniciar sesion!");
         navigate("/");
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response?.data);
         alert("Hubo un problema, intentelo de nuevo");
       });
   };
@@ -33,7 +48,7 @@ function Registro() {
       <form onSubmit={handleSubmit}>
         <InputField
           label="Nombre de usuario:"
-          name="username"
+          name="user"
           type="text"
           placeholder="Ingresa tu nombre de usuario"
           className={registro.inputField}
@@ -48,6 +63,22 @@ function Registro() {
           required
         />
         <InputField
+          label="Nombre:"
+          type="text"
+          name="nombre"
+          placeholder="Ingresa su nombre"
+          className={registro.inputField}
+          required
+        />
+        <InputField
+          label="Apellido:"
+          type="text"
+          name="apellido"
+          placeholder="Ingresa su apellido"
+          className={registro.inputField}
+          required
+        />
+        <InputField
           label="Email:"
           type="text"
           name="email"
@@ -56,22 +87,6 @@ function Registro() {
           required
         />
 
-        <InputField
-          label="Nombre:"
-          type="text"
-          name="name"
-          placeholder="Ingresa su nombre"
-          className={registro.inputField}
-          required
-        />
-        <InputField
-          label="Apellido:"
-          type="text"
-          name="surname"
-          placeholder="Ingresa su apellido"
-          className={registro.inputField}
-          required
-        />
         <InputField
           label="DNI:"
           type="text"
@@ -109,50 +124,3 @@ function Registro() {
 }
 
 export default Registro;
-
-/* // <div class="formContainer">
-    // <h2 class="sectionTitle">Registrarse</h2>
-    // <form method="post">
-
-    // username = forms.CharField(
-    //     label="Nombre de usuario",
-    // )
-
-    // password1 = forms.CharField(
-    //         attrs={'class': 'inputField'}), 
-    //     label="Contraseña"
-    // )
-
-    // password2 = forms.CharField(
-    //         attrs={'class': 'inputField'}), 
-    //         label="Repite la contraseña"
-    // )
-    
-    // nombre = forms.CharField(
-    //     label="Nombre",
-    //     widget=forms.TextInput(attrs={'class': 'inputField'})
-    // )
-
-    // apellido = forms.CharField(
-    //     label="Apellido",
-    //     widget=forms.TextInput(attrs={'class': 'inputField'})
-    // )
-
-    // dni = forms.CharField(
-    //     label="DNI",
-    //     widget=forms.TextInput(attrs={'class': 'inputField'})
-    // )
-
-
-
-    //     <div class="btnContainer">
-    //         <button type="submit">Registrarse</button>
-    //     </div>
-    // </form>
-
-    //     <p class="pregunta">
-    //         ¿Ya tienes una cuenta? 
-    //         <a href="{% url 'login' %}">¡Inicia sesión!</a>
-    //     </p>
-
-    // </div> */

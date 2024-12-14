@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { FaTrash } from "react-icons/fa";
 import api from "../../api/axiosConfig";
 
-function PrestamosCard({ dato, isDelete = false }) {
+function PrestamosCard({ dato, isDelete = false, empleado = true }) {
   const handleDeletePrestamo = () => {
     console.log(dato);
     api
@@ -17,7 +17,7 @@ function PrestamosCard({ dato, isDelete = false }) {
     <div>
       <p> Tipo de Prestamos: {dato.tipo_prestamo} </p>
       <p> Monto: {dato.monto} </p>
-      <p> Cliente: {dato.cliente} </p>
+      {empleado && <p> Cliente: {dato.cliente} </p>}
       {isDelete && (
         <button onClick={handleDeletePrestamo}>
           {" "}
@@ -32,4 +32,5 @@ export default PrestamosCard;
 PrestamosCard.propTypes = {
   dato: PropTypes.object,
   isDelete: PropTypes.bool,
-};
+  empleado: PropTypes.bool
+ };

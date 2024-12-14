@@ -11,7 +11,7 @@ function Tarjetas() {
       .get(`tarjetas/cliente/${cliente.id}/`)
       .then(({ data }) => setTarjetas(data))
       .catch(({ err }) => console.log(err));
-  }, [cliente]);
+  }, []);
 
   return (
     <>

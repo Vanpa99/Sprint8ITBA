@@ -18,7 +18,7 @@ function Prestamos({ cliente }) {
       <h2>Prestamos</h2>
 
       {datos.map((dato) => (
-        <PrestamosCard key={dato.id} dato={dato} />
+        <PrestamosCard key={dato.id} dato={dato} empleado = {false} />
       ))}
     </div>
   );

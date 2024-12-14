@@ -25,6 +25,9 @@ class ClienteSerializer(serializers.ModelSerializer):
             password=user_data['password']
         )
         cliente = Cliente.objects.create(user=user, **validated_data)
+        cuenta = Cuenta.objects.create(cliente=cliente,
+            tipo_cuenta='CUENTA CORRIENTE PESOS',
+            saldo=0.00)
         return cliente
 
 
