@@ -8,12 +8,14 @@ function InputField({
   disabled,
   id,
   required,
+  name,
 }) {
   return (
     <div>
       <label htmlFor={id}>{label}</label>
       <input
         className={className}
+        name={name}
         type={type}
         value={value}
         onChange={onChange}

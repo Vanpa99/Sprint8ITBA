@@ -20,6 +20,9 @@ function Sidebar() {
           <li>
             <Link to="/sucursales">Sucursales</Link>
           </li>
+          <li>
+            <Link to="/prestamos">Prestamos</Link>
+          </li>
           {cliente.rol !== "cliente" && (
             <li>
               <Link to="/tarjetas">Tarjetas</Link>
@@ -27,7 +30,7 @@ function Sidebar() {
           )}
           {cliente.rol !== "cliente" && (
             <li>
-              <Link to="/generar_prestamos">Prestamos para clientes</Link>
+              <Link to="/prestamos-empleados">Prestamos (empleados) </Link>
             </li>
           )}
         </ul>

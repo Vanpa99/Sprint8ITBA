@@ -3,7 +3,7 @@ import api from "../api/axiosConfig";
 import { useState } from "react";
 import PrestamosCard from "../components/prestamos/PrestamosCard";
 
-function GenerarPrestamos() {
+function PrestamosEmpleados() {
   const [clientes, setClientes] = useState(null);
   const [sucursales, setSucursales] = useState(null);
   const [prestamos, setPrestamos] = useState(null);
@@ -114,4 +114,4 @@ function GenerarPrestamos() {
     </div>
   );
 }
-export default GenerarPrestamos;
+export default PrestamosEmpleados;

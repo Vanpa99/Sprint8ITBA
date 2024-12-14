@@ -15,13 +15,13 @@ function SucursalesCard({ sucursal, cliente }) {
         .get(`prestamos/sucursal/${sucursal.id}`)
         .then(({ data }) => setPrestamoSuc(data))
         .catch(({ err }) => console.error(err));
-      console.log("Hola");
     }
   };
 
   return (
     <>
-      <button className={styles.sucursalCard}
+      <button
+        className={styles.sucursalCard}
         disabled={cliente?.rol === "cliente" && false}
         onClick={handleInfoSucursal}
       >
@@ -32,10 +32,11 @@ function SucursalesCard({ sucursal, cliente }) {
 
       {modal &&
         prestamoSuc?.map((prestamo) => (
-          <button 
-            className={styles.sucursalCard} 
-            onClick={() => setModal(false)} 
-            key={prestamo.id}>
+          <button
+            className={styles.sucursalCard}
+            onClick={() => setModal(false)}
+            key={prestamo.id}
+          >
             <p>Monto Generado: {prestamo.monto}</p>
             <p>Tipo de prestamo Generado: {prestamo.tipo_prestamo}</p>
             <p>Cliente: {prestamo.cliente}</p>

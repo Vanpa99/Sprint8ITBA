@@ -1,88 +1,111 @@
-import InputField from "../UI/InputField";
-import Button from "../UI/Button";
-import registro from "./registro.module.css";
+import { useNavigate } from "react-router-dom";
+import api from "../../api/axiosConfig";
 import "../../styles/global.css";
+import Button from "../UI/Button";
+import InputField from "../UI/InputField";
+import registro from "./registro.module.css";
 function Registro() {
-    return ( 
-        <div className={registro.formContainer}>
+  const navigate = useNavigate();
 
-            <h2 className={registro.sectionTitle}>
-                Registrarse
-            </h2>
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-            <form >
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
 
-                <InputField
-                    label="Nombre de usuario:"
-                    type="text"
-                    placeholder="Ingresa tu nombre de usuario"
-                    className={registro.inputField}
-                    required
-                />
-                <InputField
-                    label="Email:"
-                    type="text"
-                    placeholder="Ingresa tu email"
-                    className={registro.inputField}
-                    required
-                />
+    api
+      .post("clientes/", data)
+      .then(() => {
+        console.log("Exitoso");
+        alert("Usuario creado con exito, puede iniciar sesion!");
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Hubo un problema, intentelo de nuevo");
+      });
+  };
 
-                <InputField
-                    label="Contraseña:"
-                    type="password"
-                    placeholder="Ingresa su contraseña"
-                    className={registro.inputField}
-                    required
-                />
-                <InputField
-                    label="Nombre:"
-                    type="text"
-                    placeholder="Ingresa su nombre"
-                    className={registro.inputField}
-                    required
-                />
-                 <InputField
-                    label="Apellido:"
-                    type="text"
-                    placeholder="Ingresa su apellido"
-                    className={registro.inputField}
-                    required
-                />
-                <InputField
-                    label="DNI:"
-                    type="text"
-                    placeholder="Ingresa tu DNI"
-                    className={registro.inputField}
-                    required
-                />
-                <InputField
-                    label="Dirección:"
-                    type="text"
-                    placeholder="Ingresa tu dirección"
-                    className={registro.inputField}
-                    required
-                />
-                <InputField
-                    label="Telefono:"
-                    type="text" 
-                    placeholder="Ingresa tu telefono"
-                    className={registro.inputField}
-                    required
-                />
+  return (
+    <div className={registro.formContainer}>
+      <h2 className={registro.sectionTitle}>Registrarse</h2>
 
-                <Button 
-                    text="Registrarse" 
-                    className={registro.boton} 
-                    type="submit" />
-            </form>
+      <form onSubmit={handleSubmit}>
+        <InputField
+          label="Nombre de usuario:"
+          name="username"
+          type="text"
+          placeholder="Ingresa tu nombre de usuario"
+          className={registro.inputField}
+          required
+        />
+        <InputField
+          label="Contraseña:"
+          type="password"
+          name="password"
+          placeholder="Ingresa su contraseña"
+          className={registro.inputField}
+          required
+        />
+        <InputField
+          label="Email:"
+          type="text"
+          name="email"
+          placeholder="Ingresa tu email"
+          className={registro.inputField}
+          required
+        />
 
-            <p className={registro.pregunta}>
-                ¿Ya tienes una cuenta? 
-                <a href="/">¡Iniciar sesión!</a>
-            </p>
-        </div>
+        <InputField
+          label="Nombre:"
+          type="text"
+          name="name"
+          placeholder="Ingresa su nombre"
+          className={registro.inputField}
+          required
+        />
+        <InputField
+          label="Apellido:"
+          type="text"
+          name="surname"
+          placeholder="Ingresa su apellido"
+          className={registro.inputField}
+          required
+        />
+        <InputField
+          label="DNI:"
+          type="text"
+          name="dni"
+          placeholder="Ingresa tu DNI"
+          className={registro.inputField}
+          required
+        />
+        <InputField
+          label="Dirección:"
+          type="text"
+          name="direccion"
+          placeholder="Ingresa tu dirección"
+          className={registro.inputField}
+          required
+        />
+        <InputField
+          label="Telefono:"
+          type="text"
+          name="telefono"
+          placeholder="Ingresa tu telefono"
+          className={registro.inputField}
+          required
+        />
 
-     );
+        <Button text="Registrarse" className={registro.boton} type="submit" />
+      </form>
+
+      <p className={registro.pregunta}>
+        ¿Ya tienes una cuenta?
+        <a href="/">¡Iniciar sesión!</a>
+      </p>
+    </div>
+  );
 }
 
 export default Registro;
