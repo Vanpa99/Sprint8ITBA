@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import api from "../api/axiosConfig";
 import PrestamosCard from "../components/prestamos/PrestamosCard";
+import styles from "./Prestamos.module.css";
 
 function Prestamos({ cliente }) {
   const [datos, setDatos] = useState([]);
@@ -14,8 +15,8 @@ function Prestamos({ cliente }) {
   }, [cliente]);
 
   return (
-    <div>
-      <h2>Prestamos</h2>
+    <div className={styles.formContainer}>
+      <h2 className={styles.sectionTitle}>Prestamos</h2>
 
       {datos.map((dato) => (
         <PrestamosCard key={dato.id} dato={dato} empleado = {false} />

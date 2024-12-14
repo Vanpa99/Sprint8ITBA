@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import api from "../api/axiosConfig";
 import CuentasCard from "../components/cuenta/CuentasCard";
+import styles from "./Cuentas.module.css";
 
 function Cuentas({ cliente }) {
   const [datos, setDatos] = useState([]);
@@ -14,13 +15,13 @@ function Cuentas({ cliente }) {
   }, [cliente]);
 
   return (
-    <section>
-      <h2>Cuentas</h2>
+    <div className={styles.formContainer}>
+      <h2 className={styles.sectionTitle}>Cuentas</h2>
 
       {datos.map((dato, index) => (
         <CuentasCard key={index} dato={dato} />
       ))}
-    </section>
+    </div>
   );
 }
 export default Cuentas;

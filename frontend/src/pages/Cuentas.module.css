@@ -1,0 +1,31 @@
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 2px solid var(--difuminado);
+    max-width: 80%;
+    margin: auto;
+    border-radius: 5px;
+}
+
+.sectionTitle {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}  
+
+.inputField {
+    width: calc(100% - 22px);
+    padding: 10px;
+    border: 1px solid var(--difuminado);
+    border-radius: 5px;
+    margin-bottom: 15px;
+    background-color: field;
+}
+
+.card{
+    border: 1px solid var(--difuminado);
+    margin: 1rem;
+    padding: 1rem;
+}

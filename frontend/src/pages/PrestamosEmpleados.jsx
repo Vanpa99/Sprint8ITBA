@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import api from "../api/axiosConfig";
 import { useState } from "react";
 import PrestamosCard from "../components/prestamos/PrestamosCard";
+import styles from "./Prestamos.module.css";
+import InputField from "../components/UI/InputField";
 
 function PrestamosEmpleados() {
   const [clientes, setClientes] = useState(null);
@@ -53,18 +55,21 @@ function PrestamosEmpleados() {
   }, []);
 
   return (
-    <div>
-      <h3>Generar un prestamo para un cliente</h3>
+    <>
+    <div className={styles.formContainer}>
+      <h2 className={styles.sectionTitle}>
+        Generar un prestamo para un cliente
+      </h2>
 
-      <form onSubmit={handleSubmit}>
+      <form className={styles.card} onSubmit={handleSubmit}>
         <div>
+          
           <label>
-            Cliente
-            <select name="cliente" id="cliente">
+            Cliente:
+            <select className={styles.inputField} name="cliente" id="cliente">
               <option>Selecciona un cliente</option>
               {clientes?.map((cliente) => (
                 <option key={cliente.id} value={cliente.id}>
-                  {" "}
                   {cliente.nombre} {cliente.apellido}
                 </option>
               ))}
@@ -73,8 +78,8 @@ function PrestamosEmpleados() {
         </div>
         <div>
           <label>
-            Tipo de Prestamo
-            <select name="tipo" id="tipo">
+            Tipo de Prestamo:
+            <select className={styles.inputField} name="tipo" id="tipo">
               <option value="PERSONAL">Personal</option>
               <option value="PRENDARIO">Prendario</option>
               <option value="HIPOTECARIO">Hipotecario</option>
@@ -82,36 +87,38 @@ function PrestamosEmpleados() {
           </label>
         </div>
         <div>
-          <label>
-            Monto
-            <input type="number" name="monto" id="monto" />
-          </label>
+          <InputField
+            label="Monto:"
+            type="number"
+            name="monto" id="monto"
+            className={styles.inputField}
+            />
         </div>
         <div>
           <label>
-            Sucursal
-            <select name="sucursal" id="sucursal">
+            Sucursal:
+            <select className={styles.inputField} name="sucursal" id="sucursal">
               <option>Selecciona una sucursal</option>
               {sucursales?.map((sucursal) => (
                 <option key={sucursal.id} value={sucursal.id}>
-                  {" "}
                   {sucursal.nombre}
                 </option>
               ))}
             </select>
           </label>
         </div>
-        <button type="submit">Generar Prestamo</button>
+        <button className={styles.boton} type="submit">Generar Prestamo</button>
       </form>
 
-      <div>
-        <h3>Eliminar el prestamo de un cliente</h3>
+    </div>
 
+      <div className={styles.formContainer}>
+        <h2 className={styles.sectionTitle}>Eliminar el prestamo de un cliente</h2>
         {prestamos?.map((prestamo) => (
           <PrestamosCard key={prestamo.id} dato={prestamo} isDelete={true} />
         ))}
       </div>
-    </div>
+      </>
   );
 }
 export default PrestamosEmpleados;
