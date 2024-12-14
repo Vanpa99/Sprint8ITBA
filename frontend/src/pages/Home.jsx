@@ -29,7 +29,8 @@ function Home() {
 
         <Link to="/tarjetas">
           <li>
-            Listar las tarjetas de crédito asociadas a un cliente (Empleados autenticados).
+            Listar las tarjetas de crédito asociadas a un cliente (Empleados
+            autenticados).
           </li>
         </Link>
 
@@ -40,9 +41,10 @@ function Home() {
           </li>
         </Link>
 
-        <Link to="/prestamos-empleado">
+        <Link to="/prestamos-empleados">
           <li>
-            Anular solicitudes de préstamos de clientes (Empleados autenticados).
+            Anular solicitudes de préstamos de clientes (Empleados
+            autenticados).
           </li>
         </Link>
 
