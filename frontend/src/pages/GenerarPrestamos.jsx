@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import api from "../api/axiosConfig";
 import { useState } from "react";
 import PrestamosCard from "../components/prestamos/PrestamosCard";
-
 function GenerarPrestamos() {
   const [clientes, setClientes] = useState(null);
   const [sucursales, setSucursales] = useState(null);
@@ -54,7 +53,7 @@ function GenerarPrestamos() {
 
   return (
     <div>
-      <h3>Generar un prestamo para un cliente</h3>
+      <h2 >Generar un prestamo para un cliente</h2>
 
       <form onSubmit={handleSubmit}>
         <div>

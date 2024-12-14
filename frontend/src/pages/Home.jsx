@@ -11,29 +11,40 @@ function Home() {
           <li>Consultar tus datos personales (Clientes autenticados).</li>
         </Link>
 
-        <li>Obtener saldo de tus cuentas bancarias (Clientes autenticados).</li>
+        <Link to="/cuentas">
+          <li>
+            Obtener saldo de tus cuentas bancarias (Clientes autenticados).
+          </li>
+        </Link>
 
-        <li>
-          Consultar el monto total de tus préstamos (Clientes autenticados).
-        </li>
+        <Link to="/prestamos">
+          <li>
+            Consultar el monto total de tus préstamos (Clientes autenticados).
+          </li>
+        </Link>
 
         <Link to="/sucursales">
           <li>Listar préstamos por sucursal (Empleados autenticados).</li>
         </Link>
 
-        <li>
-          Listar las tarjetas de crédito asociadas a un cliente (Empleados
-          autenticados).
-        </li>
+        <Link to="/tarjetas">
+          <li>
+            Listar las tarjetas de crédito asociadas a un cliente (Empleados autenticados).
+          </li>
+        </Link>
 
-        <li>
-          Generar solicitudes de préstamos para clientes (Empleados
-          autenticados).
-        </li>
+        <Link to="/prestamos-empleados">
+          <li>
+            Generar solicitudes de préstamos para clientes (Empleados
+            autenticados).
+          </li>
+        </Link>
 
-        <li>
-          Anular solicitudes de préstamos de clientes (Empleados autenticados).
-        </li>
+        <Link to="/prestamos-empleado">
+          <li>
+            Anular solicitudes de préstamos de clientes (Empleados autenticados).
+          </li>
+        </Link>
 
         <Link to="/mis-datos">
           <li>

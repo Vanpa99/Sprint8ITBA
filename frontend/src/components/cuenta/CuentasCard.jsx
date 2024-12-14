@@ -1,10 +1,22 @@
 import PropTypes from "prop-types";
+import InputField from "../UI/InputField";
+import styles from "../../pages/Cuentas.module.css";
 
 function CuentasCard({ dato }) {
   return (
-    <div>
-      <p>Tipo de Cuenta {dato.tipo_cuenta}</p>
-      <p>Saldo: {dato.saldo}</p>
+    <div className={styles.card}>
+      <InputField 
+        label="Tipo de Cuenta:"
+        className={styles.inputField}
+        disabled
+        value={dato.tipo_cuenta}
+      />
+      <InputField 
+        label="Saldo:"
+        className={styles.inputField}
+        disabled
+        value={dato.saldo}
+      />
     </div>
   );
 }
