@@ -8,7 +8,7 @@ function Tarjetas() {
 
   useEffect(() => {
     api
-      .get(`tarjetas/cliente/${cliente.id}`)
+      .get(`tarjetas/cliente/${cliente.id}/`)
       .then(({ data }) => setTarjetas(data))
       .catch(({ err }) => console.log(err));
   }, [cliente]);

@@ -2,12 +2,8 @@ import { useEffect } from "react";
 import api from "../api/axiosConfig";
 import { useState } from "react";
 import PrestamosCard from "../components/prestamos/PrestamosCard";
-<<<<<<< HEAD:frontend/src/pages/GenerarPrestamos.jsx
-function GenerarPrestamos() {
-=======
 
 function PrestamosEmpleados() {
->>>>>>> zahn:frontend/src/pages/PrestamosEmpleados.jsx
   const [clientes, setClientes] = useState(null);
   const [sucursales, setSucursales] = useState(null);
   const [prestamos, setPrestamos] = useState(null);
@@ -68,7 +64,6 @@ function PrestamosEmpleados() {
               <option>Selecciona un cliente</option>
               {clientes?.map((cliente) => (
                 <option key={cliente.id} value={cliente.id}>
-                  {" "}
                   {cliente.nombre} {cliente.apellido}
                 </option>
               ))}

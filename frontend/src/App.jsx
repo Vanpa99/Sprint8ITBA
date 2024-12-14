@@ -13,7 +13,7 @@ import Prestamos from "./pages/Prestamos";
 import Sucursales from "./pages/Sucursales";
 import MisDatos from "./pages/MisDatos";
 import Tarjetas from "./pages/Tarjetas";
-import GenerarPrestamos from "./pages/GenerarPrestamos";
+import PrestamosEmpleados from "./pages/PrestamosEmpleados";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -46,9 +46,10 @@ function App() {
                 <Route path="/prestamos" element={<Prestamos />} />
                 <Route path="/sucursales" element={<Sucursales />} />
                 <Route path="/tarjetas" element={<Tarjetas />} />
+                <Route path="/pretamos" element={<Prestamos />} />
                 <Route
-                  path="/generar_prestamos"
-                  element={<GenerarPrestamos />}
+                  path="/prestamos-empleados"
+                  element={<PrestamosEmpleados />}
                 />
                 <Route path="*" element={<Page404 />} />
               </Routes>
