@@ -1,25 +1,26 @@
-----
+Para el correcto funcionamiento del proyecto le recomendamos que inserte:
+--
+* ```management.py``` en DJANGO.
 
-Para el correcto funcionamiento de nuestro proyecto le recomendamos que:
+* ```npm run dev``` en la consola para ejecutar el servidor local.
 
-*Inicialice con management.py en DJANGO
+* El código cuenta con la posibilidad de crearse un usuario teniendo en cuenta que no tendrá fondos ni tarjetas asociadas
 
-*Inicialice npm run dev en la consola para ejecutar el front.
 
-----
 
-Creedenciales correpondientes para iniciar sesión. 
+* Al crear la cuenta, esta no tendrá fondos ni tarjetas asociadas.
 
-👤usuario 
+Creedenciales correpondientes para iniciar sesión como EMPLEADO. 
+--
+usuario👤→ empleado
 
-Matias Godoy
+contraseña🔑→123
 
-----
+Creedenciales correpondientes para iniciar sesión como CLIENTE. 
+--
 
-🔑contraseña: 
+usuario👤→cliente
 
-sprint8
-
------
+contraseña🔑→ prueba1234
 
 
