@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../api/axiosConfig";
+import styles from "./Tarjetas.module.css";
+import InputField from "../components/UI/InputField";
 
 function Tarjetas() {
   const [tarjetas, setTarjetas] = useState(null);
@@ -15,14 +17,40 @@ function Tarjetas() {
 
   return (
     <>
-      <div>
+      <div className={styles.fromContainer}>
         {tarjetas?.map((tarjeta) => (
-          <div key={tarjeta.id}>
-            <h4> {tarjeta.nombre_cliente} </h4>
-            <p>{tarjeta.marca}</p>
-            <p>{tarjeta.tipo_tarjeta}</p>
-            <p>{tarjeta.numero}</p>
-            <p>{tarjeta.fecha_emicion}</p>
+          <div className={styles.card} key={tarjeta.id}>
+            <h2 className={styles.sectionTitle}> 
+              {tarjeta.nombre_cliente}
+            </h2>
+            <InputField 
+              label="Marca:"
+              type="text"
+              value={tarjeta.marca}
+              disabled={true}
+              className={styles.inputField}
+            />
+            <InputField 
+              label="Tipo de tarjeta:"
+              type="text"
+              value={tarjeta.tipo_tarjeta}
+              disabled={true}
+              className={styles.inputField}
+            />
+            <InputField 
+              label="Numero"
+              type="text"
+              value={tarjeta.numero}
+              disabled={true}
+              className={styles.inputField}
+            />
+            <InputField 
+              label="Fecha de emision:"
+              type="text"
+              value={tarjeta.fecha_emicion}
+              disabled={true}
+              className={styles.inputField}
+            />
           </div>
         ))}
       </div>

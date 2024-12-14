@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
 import { FaTrash } from "react-icons/fa";
 import api from "../../api/axiosConfig";
+import inputFields from "../UI/InputField";
+import styles from "../../pages/Prestamos.module.css";
+import InputField from "../UI/InputField";
 
 function PrestamosCard({ dato, isDelete = false }) {
   const handleDeletePrestamo = () => {
@@ -14,14 +17,28 @@ function PrestamosCard({ dato, isDelete = false }) {
   };
 
   return (
-    <div>
-      <p> Tipo de Prestamos: {dato.tipo_prestamo} </p>
-      <p> Monto: {dato.monto} </p>
-      <p> Cliente: {dato.cliente} </p>
+    <div className={styles.card}>
+      <InputField
+        label="Tipo de Prestamo:"
+        value={dato.tipo_prestamo}
+        className={styles.inputField}
+        disabled={true}
+      />
+      <InputField 
+        label="Monto:"
+        value={dato.monto}
+        className={styles.inputField}
+        disabled={true}
+      />
+      <InputField 
+        label="Cliente:"
+        value={dato.cliente}
+        className={styles.inputField}
+        disabled={true}
+      />
       {isDelete && (
         <button onClick={handleDeletePrestamo}>
-          {" "}
-          <FaTrash />{" "}
+          <FaTrash />
         </button>
       )}
     </div>
