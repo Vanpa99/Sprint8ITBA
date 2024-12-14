@@ -1,14 +1,13 @@
 Para el correcto funcionamiento del proyecto le recomendamos que inserte:
 --
-* ```management.py``` en DJANGO.
+* ```py manage.py runserver``` en la carpeta itpowerbank para correr el backend.
 
-* ```npm run dev``` en la consola para ejecutar el servidor local.
+* ```npm run dev``` en la carpeta frontend para ejecutar el front.
 
-* El código cuenta con la posibilidad de crearse un usuario teniendo en cuenta que no tendrá fondos ni tarjetas asociadas
+ 
+###  El código cuenta con la posibilidad de crearse un usuario teniendo en cuenta que no tendrá fondos ni tarjetas asociadas, por lo tanto algunas de sus funciones no seran utilizables. 
 
 
-
-* Al crear la cuenta, esta no tendrá fondos ni tarjetas asociadas.
 
 Creedenciales correpondientes para iniciar sesión como EMPLEADO. 
 --
