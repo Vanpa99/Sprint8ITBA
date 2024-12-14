@@ -11,15 +11,15 @@ Para el correcto funcionamiento del proyecto le recomendamos que inserte:
 
 Creedenciales correpondientes para iniciar sesión como EMPLEADO. 
 --
-usuario👤→ Zahn
+usuario👤→ zahn
 
 contraseña🔑→123
 
 Creedenciales correpondientes para iniciar sesión como CLIENTE. 
 --
 
-usuario👤→Vanpa
+usuario👤→vanpa
 
-contraseña🔑→ Matias123
+contraseña🔑→ matias123
 
 
